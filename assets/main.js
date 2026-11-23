@@ -260,7 +260,7 @@
 
     $('courseCards').innerHTML = r.courses.map(function (c, i) {
       return '<article class="card course' + (i === 0 ? ' main' : '') + '">' +
-        '<p class="eyebrow">' + esc(c.name) + (i === 0 ? ' · 훈련 기준' : '') + '</p>' +
+        '<p class="eyebrow">' + esc(c.name) + '</p>' +
         '<p class="course-km">' + c.km + '<small>km</small></p>' +
         '<dl class="dl">' +
         '<div><dt>출발</dt><dd>' + esc(c.start) + '</dd></div>' +

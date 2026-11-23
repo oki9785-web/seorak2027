@@ -207,6 +207,16 @@ details > summary::-webkit-details-marker { display: none; }
 .more[open] > summary::after, .fold[open] > summary::after { transform: rotate(-135deg) translateY(-2px); }
 .more-body { padding-top: 4px; }
 
+/* 대회 소개 */
+.intro-cols { display: grid; gap: 28px; margin: 20px 0 20px; }
+@media (min-width: 640px) { .intro-cols { grid-template-columns: 1fr 1fr; gap: 32px; } }
+.intro-title { font-size: 1.15rem; }
+.intro-title::after { content: ""; display: block; width: 28px; height: 3px; border-radius: 2px; background: var(--accent); margin: 10px 0 12px; }
+.intro-col p { color: var(--ink-2); }
+.intro-col b { color: var(--ink); }
+.intro-col a { color: var(--accent-strong); text-underline-offset: 3px; }
+.intro-note { margin: 0 0 28px; padding: 16px 18px; background: var(--accent-soft); border-left: 4px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; color: var(--ink); }
+
 /* 대회 */
 .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
 @media (min-width: 640px) { .stats { grid-template-columns: repeat(4, 1fr); } }
