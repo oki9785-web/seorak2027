@@ -180,15 +180,17 @@
       var next = aw.groupRides.filter(function (r) { return r.date >= T; })[0];
       if (next) {
         var nd = daysFrom(T, next.date);
+        var nextNote = (cfg.groupRideNotes || {})[next.date];
         html =
           '<p class="eyebrow">시즌 · 다음 단체 훈련</p>' +
           '<h3>' + mdw(next.date) + ' ' + esc(next.title) + '</h3>' +
+          (nextNote ? '<p class="muted small">' + esc(nextNote) + '</p>' : '') +
           '<p class="big-dday">' + (nd === 0 ? '오늘' : dday(nd)) + '</p>' +
           '<dl class="week-rows">' +
           row('거리', esc(next.km) + 'km · 예상 ' + esc(next.hours) + '시간 (휴식 포함)', true) +
           row('평일', '로라 2회 유지 (화요일 포인트, 목요일 편하게)') +
           '</dl>' +
-          '<p class="muted small" style="margin-top:12px">코스와 집결지는 출발 2주 전 카페에 공지합니다.</p>';
+          '<p class="muted small" style="margin-top:12px">코스와 집결지는 출발 2주 전까지 카페에 공지합니다.</p>';
       } else {
         html =
           '<p class="eyebrow">대회 주간</p>' +
@@ -196,7 +198,8 @@
           '<p class="big-dday">' + dday(daysFrom(T, cfg.raceDate)) + '</p>' +
           '<dl class="week-rows">' +
           row('지금은', '새로운 훈련보다 컨디션 조절. 잠을 충분히, 짧고 가볍게 타기', true) +
-          row('대회 전날', '인제 숙박 · ' + full(cfg.raceDate) + ' ' + esc(cfg.raceStartTime) + ' 출발') +
+          row('대회', full(cfg.raceDate) + ' ' + esc(cfg.raceStartTime) + ' 출발' +
+            (cfg.raceTravelNote ? '<br><span class="muted small">' + esc(cfg.raceTravelNote) + '</span>' : '')) +
           '</dl>';
       }
     } else if (T === cfg.raceDate) {
@@ -313,7 +316,7 @@
     });
     rows.push('<tr><td class="num"><b>' + mdw(cfg.raceDate) + '</b></td>' +
       '<td><b>' + ymd(cfg.raceDate).y + ' 설악그란폰도</b>' + (cfg.raceDateIsEstimate ? ' <span class="tag">예상일</span>' : '') +
-      '<br><span class="muted small">전날 인제 숙박</span></td>' +
+      (cfg.raceTravelNote ? '<br><span class="muted small">' + esc(cfg.raceTravelNote) + '</span>' : '') + '</td>' +
       '<td class="num">208 / 105km</td><td class="num">제한 12 / 7시간</td></tr>');
     $('ridesTable').querySelector('tbody').innerHTML = rows.join('');
 

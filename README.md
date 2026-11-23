@@ -30,6 +30,7 @@ data/weeks.json     동계 훈련 11주 계획
 | `firstRideMeetingPoint`, `firstRideStartTime` | 3/7 집결지와 출발 시간 |
 | `checkpoints` | 원정대 일정 타임라인. `date`는 보이는 글자, `end`는 끝나는 날(지나면 회색) |
 | `groupRideNotes` | 단체 훈련 표의 날짜별 한 줄 메모 (3/21 이후 코스 확정되면 여기에) |
+| `raceTravelNote` | 대회 이동 안내 문구 (일정표 대회 행, 대회 주간 카드에 표시) |
 | `race` | 대회 정보(2026년 기준). 2027 요강 발표 후 숫자 갱신 |
 
 날짜는 모두 `YYYY-MM-DD`, 한국 시간 기준입니다. 쉼표·따옴표가 하나라도 빠지면 페이지가 안 뜨니,
