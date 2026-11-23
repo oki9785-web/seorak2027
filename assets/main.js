@@ -48,6 +48,29 @@
   function full(s) { var d = ymd(s); return d.y + '.' + pad(d.m) + '.' + pad(d.d) + '(' + wd(s) + ')'; }
   function dday(n) { return n > 0 ? 'D-' + n : n === 0 ? 'D-DAY' : 'D+' + (-n); }
 
+  /* ---------- 상단 메뉴: 지금 보고 있는 섹션 표시 ---------- */
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.topnav-links a'));
+    if (!links.length || !('IntersectionObserver' in window)) return;
+    var byId = {};
+    links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+    function mark(id) {
+      links.forEach(function (a) {
+        var on = a === byId[id];
+        a.classList.toggle('is-current', on);
+        if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+      });
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) mark(e.target.id); });
+    }, { rootMargin: '-60px 0px -55% 0px' });
+    Object.keys(byId).forEach(function (id) { var el = $(id); if (el) io.observe(el); });
+    var hero = $('top');
+    if (hero) new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) mark(null);
+    }, { rootMargin: '-60px 0px -55% 0px' }).observe(hero);
+  })();
+
   /* ---------- 데이터 불러오기 ---------- */
   function getJSON(url) {
     return fetch(url, { cache: 'no-cache' }).then(function (r) {
