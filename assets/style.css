@@ -1,4 +1,4 @@
-/* 2027 설악 원정대 — 디자인 방향은 data/config.json의 "theme" ("A" 또는 "B")로 바꿉니다. */
+/* 2027 설악 원정대 — 디자인 색은 data/config.json의 "theme" ("A"~"D")로 바꿉니다. 현재 C(숲길). */
 
 /* A. 익숙하고 깔끔하게: 흰 바탕 + 초록 강조 */
 :root,
@@ -39,6 +39,50 @@
   --hero-top: #fdf3e8;
   --radius: 10px;
   --shadow: 0 1px 2px rgba(60, 40, 20, .04), 0 4px 14px rgba(60, 40, 20, .05);
+}
+
+/* C. 숲길: 사진의 짙은 숲 초록 + 도로 중앙선 노랑 포인트, 안개 낀 회녹색 바탕 */
+[data-theme="C"] {
+  --bg: #f5f7f3;
+  --bg-alt: #ebf0e9;
+  --surface: #ffffff;
+  --ink: #1b2620;
+  --ink-2: #435049;
+  --muted: #626e67;
+  --line: #dce3db;
+  --accent: #2e6a45;        /* 흰 바탕 대비 6.4:1 */
+  --accent-strong: #214f33;
+  --accent-soft: #e2ede5;
+  --on-accent: #ffffff;
+  --highlight: #f2c230;     /* 중앙선 노랑: 어두운 글자와 함께만 사용 */
+  --on-highlight: #1b2620;
+  --ridge-back: #cfdccf;
+  --ridge-front: #a7bfa9;
+  --hero-top: #edf2ec;
+  --hero-overlay: linear-gradient(180deg, rgba(16, 34, 24, .30), rgba(16, 34, 24, .62));
+  --radius: 12px;
+  --shadow: 0 1px 2px rgba(20, 40, 28, .05), 0 4px 16px rgba(20, 40, 28, .06);
+}
+
+/* D. 안개 산: 먼 능선의 청회색 + 구름 회색 바탕, 차분하고 시원하게 */
+[data-theme="D"] {
+  --bg: #f4f6f8;
+  --bg-alt: #e9eef2;
+  --surface: #ffffff;
+  --ink: #1c242b;
+  --ink-2: #46525c;
+  --muted: #65717b;
+  --line: #dbe2e8;
+  --accent: #34576f;        /* 흰 바탕 대비 7.5:1 */
+  --accent-strong: #26435a;
+  --accent-soft: #e2eaf0;
+  --on-accent: #ffffff;
+  --ridge-back: #d3dde5;
+  --ridge-front: #aebfcc;
+  --hero-top: #eef2f5;
+  --hero-overlay: linear-gradient(180deg, rgba(20, 30, 40, .30), rgba(20, 30, 40, .62));
+  --radius: 12px;
+  --shadow: 0 1px 2px rgba(20, 30, 40, .05), 0 4px 16px rgba(20, 30, 40, .06);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -105,7 +149,7 @@ b { font-weight: 700; }
 .hero.has-photo { background: #1d2420; padding: 64px 0 80px; }
 .hero.has-photo .hero-media { inset: 0; height: auto; }
 .hero.has-photo .hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 66% 60%; display: block; }
-.hero.has-photo .hero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.6)); }
+.hero.has-photo .hero-media::after { content: ""; position: absolute; inset: 0; background: var(--hero-overlay, linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.6))); }
 .hero.has-photo .hero-inner, .hero.has-photo .hero-inner .eyebrow, .hero.has-photo .lead { color: #fff; }
 .hero.has-photo .countdown { background: rgba(255,255,255,.94); color: var(--ink); }
 
@@ -130,7 +174,7 @@ b { font-weight: 700; }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; margin-bottom: 16px; }
 
 /* 이번 주 카드 */
-.week-card { border-top: 4px solid var(--accent); padding: 22px 20px; }
+.week-card { border-top: 4px solid var(--highlight, var(--accent)); padding: 22px 20px; }
 .week-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; }
 .week-no { font-size: 1.8rem; font-weight: 800; color: var(--accent-strong); letter-spacing: -0.03em; }
 .week-range { color: var(--muted); font-size: .95rem; }
@@ -237,7 +281,7 @@ details > summary::-webkit-details-marker { display: none; }
 /* 신청 */
 .apply { background: var(--accent-soft); }
 .deadline { font-size: 1.05rem; font-weight: 700; margin-top: 10px; }
-.dday { display: inline-block; margin-left: 6px; padding: 2px 10px; border-radius: 999px; background: var(--accent); color: var(--on-accent); font-variant-numeric: tabular-nums; }
+.dday { display: inline-block; margin-left: 6px; padding: 2px 10px; border-radius: 999px; background: var(--highlight, var(--accent)); color: var(--on-highlight, var(--on-accent)); font-variant-numeric: tabular-nums; }
 .apply-buttons { display: grid; gap: 10px; margin: 18px 0 10px; }
 .apply-buttons .btn { width: 100%; }
 .notice { margin: 20px 0 10px; padding: 14px 16px; background: var(--surface); border-radius: var(--radius); text-align: left; border: 1px solid var(--line); }

@@ -88,10 +88,11 @@
   }
 
   function applyTheme(cfg) {
-    var t = cfg.theme === 'B' ? 'B' : 'A';
+    var colors = { A: '#ffffff', B: '#fbf8f2', C: '#f5f7f3', D: '#f4f6f8' };
+    var t = colors[cfg.theme] ? cfg.theme : 'A';
     document.documentElement.setAttribute('data-theme', t);
     var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', t === 'B' ? '#fbf8f2' : '#ffffff');
+    if (meta) meta.setAttribute('content', colors[t]);
   }
 
   /* ---------- 1. 히어로 ---------- */
