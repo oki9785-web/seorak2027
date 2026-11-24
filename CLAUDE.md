@@ -6,7 +6,7 @@
 - 바이크루 × 양평자전거연맹 '2027 설악 원정대' 모집·훈련 독려 한 페이지 사이트
 - 기획: [SPEC.md](SPEC.md) / 운영자용 수정 방법: [README.md](README.md)
 - 정적 사이트(HTML + CSS + 바닐라 JS, 프레임워크·빌드 없음)
-- 배포: GitHub Pages, `main` 브랜치 루트 → https://oki9785-web.github.io/seorak2027/
+- 배포: Netlify, `main` 브랜치 루트 자동 배포 → https://seorak2027.netlify.app/ (2026-11-24 GitHub Pages에서 전환, Pages는 끔)
 - 설정값은 `data/config.json`, 동계 훈련 11주는 `data/weeks.json`
 - 디자인: `config.json`의 `"theme": "C"` (숲길: 숲 초록 + 중앙선 노랑). A~D 팔레트가 `assets/style.css`에 있음
 
@@ -26,9 +26,9 @@
 - 날짜별 화면 확인: 주소 뒤에 `?date=2027-01-12`처럼 붙임
 
 ## 다음에 할 일 (2026-11-24 기준)
-- **Netlify 연결 시도 예정.** 저장소 `oki9785-web/seorak2027`, branch `main`, Build command 비움, Publish directory 비움(루트).
-  - Netlify GitHub 권한은 이 저장소 하나만 허용 권장
-  - 대표 주소를 정하면 `index.html`의 `og:url`, `og:image`를 그 주소로 바꾸고, 카카오 공유 디버거에서 캐시 초기화, 카페 링크 교체
-  - GitHub Pages를 계속 켜 둘지 사용자에게 확인
-- 아직 비어 있는 설정 (`data/config.json`): `googleFormUrl`, `cafePostUrl`, `cafeUrl`, `firstRideMeetingPoint`, 주별 응원 문구(`weeks.json`의 `cheer`), 대회 이동 방식(`raceTravelNote`)
+- Netlify 연결 완료 (2026-11-24). 대표 주소 https://seorak2027.netlify.app/ , og:url·og:image도 이 주소.
+  - 남은 일: 카카오 공유 디버거에서 캐시 초기화, 카페 링크를 Netlify 주소로 교체 (사용자가 직접)
+  - Netlify 방문자 공개 설정은 Public (팀 기본값이 비공개라 새 프로젝트는 확인 필요)
+- 구글 폼 "2027 설악 원정대 참가 신청" 게시 완료, `googleFormUrl` 연결됨. 카페 공고글 주소가 나오면 `cafePostUrl`과 폼 확인 메시지에 넣기
+- 아직 비어 있는 설정 (`data/config.json`): `cafePostUrl`, `cafeUrl`, `firstRideMeetingPoint`, 주별 응원 문구(`weeks.json`의 `cheer`), 대회 이동 방식(`raceTravelNote`)
 - 2027 공식 요강이 나오면 `raceDate`, `raceDateIsEstimate`, 체크포인트 날짜 갱신

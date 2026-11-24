@@ -273,7 +273,7 @@
 ## 8. 기술 사양
 
 - 정적 사이트: HTML + CSS + 바닐라 JavaScript (프레임워크 없음)
-- 배포: **GitHub Pages** (운영자 계정 있음)
+- 배포: **Netlify** (https://seorak2027.netlify.app/, GitHub `main` 자동 배포). 2026-11-24 GitHub Pages에서 전환
 - 데이터: `data/weeks.json`과 설정값(대회일, 확정 마감일, 폼·카페 주소)을 한 파일에 모아 운영자가 쉽게 수정
 - 공유 미리보기 (카카오톡·네이버 카페): `og:title`, `og:description`, `og:image`(1200×630, 2026 원정대 사진), `og:url`, `twitter:card`(큰 사진형)
   - 사진 속 얼굴이 나온 회원에게 사용 동의 받기

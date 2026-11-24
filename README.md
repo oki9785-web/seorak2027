@@ -1,6 +1,6 @@
 # 2027 설악 원정대 랜딩 페이지
 
-바이크루(BICREW) × 양평자전거연맹. 정적 페이지(HTML + CSS + 바닐라 JS)이고 GitHub Pages로 배포합니다.
+바이크루(BICREW) × 양평자전거연맹. 정적 페이지(HTML + CSS + 바닐라 JS)이고 Netlify로 배포합니다. 주소: https://seorak2027.netlify.app/
 기획 내용은 [SPEC.md](SPEC.md)에 있습니다.
 
 ## 파일 구조
@@ -53,7 +53,7 @@ netlify.toml        Netlify 배포 설정, 보안 헤더
 
 `index.html` 맨 위 `og:` 태그는 JS로 바뀌지 않으므로 직접 고칩니다.
 배포 주소가 정해지면 `og:url`에 주소를, `og:image`는 **전체 주소**로 바꿔 주세요.
-예: `https://아이디.github.io/seorak2027/assets/og-image.jpg`
+지금 값: `https://seorak2027.netlify.app/assets/og-image.jpg`
 카카오톡은 미리보기를 캐시하므로, 바꾼 뒤엔 [카카오 공유 디버거](https://developers.kakao.com/tool/debugger/sharing)에서 초기화합니다.
 
 ## 날짜 테스트
@@ -73,9 +73,10 @@ powershell -ExecutionPolicy Bypass -File .claude/serve.ps1
 
 그다음 브라우저에서 <http://localhost:8080> 을 엽니다.
 
-## 배포 (GitHub Pages)
+## 배포 (Netlify)
 
-1. GitHub에 저장소 만들기 (예: `seorak2027`), 이 폴더 내용을 올리기
-2. 저장소 Settings → Pages → Source: `Deploy from a branch`, Branch: `main` / `(root)`
-3. 1~2분 뒤 `https://아이디.github.io/seorak2027/` 에서 확인
-4. 이후엔 config.json 등을 고쳐 올리면 자동 반영 (반영까지 1~2분, 브라우저 캐시로 조금 늦게 보일 수 있음)
+- Netlify 프로젝트 `seorak2027`이 GitHub 저장소 `oki9785-web/seorak2027`의 `main` 브랜치와 연결되어 있습니다. 빌드 없이 루트를 그대로 배포합니다(`netlify.toml`).
+- config.json 등을 고쳐 `main`에 올리면 자동 반영됩니다 (1분 안팎, 브라우저 캐시로 조금 늦게 보일 수 있음).
+- 방문자 공개 설정: Netlify → Project configuration → General → Visitor access → Public. 팀 기본값이 비공개라, 새 프로젝트를 만들면 이 설정을 꼭 확인합니다.
+- 보안 헤더는 `netlify.toml`에 있습니다. 외부 이미지·스크립트를 새로 쓰면 Content-Security-Policy에 주소를 추가해야 화면에 나옵니다.
+- GitHub Pages는 쓰지 않습니다 (2026-11-24 Netlify로 전환).
