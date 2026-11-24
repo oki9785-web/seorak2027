@@ -100,6 +100,7 @@
     renderWeeksTable(data, T);
     renderRides(cfg, data, T);
     renderApply(cfg, T);
+    setupMotion();
 
     if (testDate) {
       var b = document.createElement('div');
@@ -108,6 +109,66 @@
       b.textContent = '테스트 날짜: ' + full(testDate);
       document.body.appendChild(b);
     }
+  }
+
+  /* ---------- 움직임: 나타나기, 숫자 올라가기, 고개 막대 ---------- */
+  function setupMotion() {
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) return;
+    document.documentElement.classList.add('motion');
+
+    // 움직임이 내용을 설명하는 곳만 (숫자, 고개 막대, 코스 비교, 일정).
+    // 이번 주 훈련·최소 기준·소개 글·표·신청 영역은 바로 읽혀야 하므로 넣지 않음.
+    var targets = Array.prototype.slice.call(document.querySelectorAll(
+      '.stat, .climbs, .course, .timeline li'
+    ));
+
+    // 같은 줄에 나란히 있는 것은 차례로 (0.08초 간격)
+    targets.forEach(function (el) {
+      el.classList.add('reveal');
+      var sib = Array.prototype.indexOf.call(el.parentNode.children, el);
+      if (el.matches('.stat, .intro-col, .course')) el.style.animationDelay = (sib * 0.08) + 's';
+    });
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
+        if (e.target.classList.contains('stat')) countUp(e.target.querySelector('.count'));
+      });
+    }, { rootMargin: '0px 0px -15% 0px' });
+    targets.forEach(function (el) { io.observe(el); });
+
+    // 고개 막대: 줄마다 화면 아래 20% 선을 넘을 때 자라남. 한꺼번에 들어오면 0.15초씩 차례로.
+    var rows = document.querySelectorAll('#climbList li');
+    var rowIo = new IntersectionObserver(function (entries) {
+      var k = 0;
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.querySelector('.ramp').style.transitionDelay = (0.25 + k++ * 0.15) + 's';
+        e.target.classList.add('is-in');
+        rowIo.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -20% 0px' });
+    Array.prototype.forEach.call(rows, function (li) { rowIo.observe(li); });
+  }
+
+  // 숫자를 0에서 원래 값까지 0.8초 동안 올림. 끝나면 원래 글자 그대로.
+  function countUp(el) {
+    if (!el) return;
+    var text = el.textContent;
+    var to = parseFloat(text);
+    var dec = (text.split('.')[1] || '').length;
+    var start = null;
+    function step(t) {
+      if (start === null) start = t;
+      var p = Math.min(1, (t - start) / 800);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = p < 1 ? (to * eased).toFixed(dec) : text;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
   }
 
   function applyTheme(cfg) {
@@ -376,7 +437,7 @@
 
     var cafe = cfg.cafeUrl || cfg.cafePostUrl;
     var link = $('cafeLink');
-    if (cafe) { link.href = cafe; link.target = '_blank'; link.rel = 'noopener'; }
+    if (cafe) { link.href = cafe; link.target = '_blank'; link.rel = 'noopener noreferrer'; }
     else { link.replaceWith(document.createTextNode('카페 쪽지')); }
   }
 })();

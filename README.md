@@ -8,11 +8,13 @@
 ```
 index.html          페이지 본문, 공유 미리보기(og) 태그
 assets/style.css    디자인 (A/B 색상 포함)
-assets/main.js      날짜 계산, '이번 주 훈련' 카드, 카운트다운
+assets/main.js      날짜 계산, '이번 주 훈련' 카드, 카운트다운, 스크롤 움직임
 assets/hero.jpg     (넣을 예정) 히어로 사진
 assets/og-image.jpg (넣을 예정) 공유 미리보기 사진 1200×630
 data/config.json    운영자가 고치는 설정
 data/weeks.json     동계 훈련 11주 계획
+netlify.toml        Netlify 배포 설정, 보안 헤더
+.gitignore          GitHub에 올리지 않을 파일 (.env 등)
 ```
 
 ## 자주 고치는 것: `data/config.json`
@@ -24,7 +26,7 @@ data/weeks.json     동계 훈련 11주 계획
 | `raceDateIsEstimate` | 공식 요강이 나오면 `false`로 바꾸면 '예상일' 표시가 사라짐 |
 | `confirmDeadline` | 참가 확정 마감일 (신청 섹션 D-day) |
 | `googleFormUrl` | 구글 폼 주소. 비워 두면 버튼이 회색 '준비 중'으로 보임 |
-| `cafePostUrl` | 카페 신청글 주소. 비워 두면 위와 같음 |
+| `cafePostUrl` | 카페 모집 공고글 주소 ('신청 완료!' 댓글 버튼). 비워 두면 위와 같음 |
 | `cafeUrl` | 카페 주소 (푸터 '카페 쪽지' 링크). 비우면 신청글 주소를 씀 |
 | `heroImage` | 히어로 사진 경로, 예: `"assets/hero.jpg"`. 비우면 산 능선 그림 |
 | `firstRideMeetingPoint`, `firstRideStartTime` | 3/7 집결지와 출발 시간 |

@@ -241,7 +241,8 @@ details > summary::-webkit-details-marker { display: none; }
 .stat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }
 .stat b { display: block; font-size: 2.1rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }
 .stat small { font-size: .95rem; font-weight: 700; margin-left: 2px; color: var(--ink-2); }
-.stat span { font-size: .85rem; color: var(--muted); }
+.stat > span { font-size: .85rem; color: var(--muted); }
+.stat .count { font-variant-numeric: tabular-nums; }
 
 .climbs { margin: 0 0 16px; }
 .climbs figcaption { margin-bottom: 12px; }
@@ -319,3 +320,31 @@ details > summary::-webkit-details-marker { display: none; }
 .footer p { margin: 4px 0; }
 .tags { color: var(--accent-strong); font-weight: 600; margin: 12px 0 !important; }
 .tags span { white-space: nowrap; }
+
+/* 움직임 (CSS + 기본 JS만, 0.3~0.8초)
+   - main.js가 <html>에 .motion을 붙일 때만 동작합니다.
+   - '동작 줄이기'를 켠 사용자, 오래된 브라우저, JS 오류 때는 .motion이 없어서 모든 내용이 그대로 보입니다. */
+@keyframes rise { from { opacity: 0; transform: translateY(36px); } to { opacity: 1; transform: none; } }
+
+/* 1. 스크롤하면 서서히 나타나기 (화면 아래쪽 15% 안으로 들어올 때 시작) */
+.motion .reveal { opacity: 0; }
+.motion .reveal.is-in { opacity: 1; animation: rise .7s cubic-bezier(.2, .7, .3, 1) backwards; }
+
+/* 3. 고개 막대가 왼쪽 아래부터 차오르기 (막대 한 줄씩, 화면에 보일 때) */
+.motion .climb-list .ramp { transform: scale(0); transform-origin: left bottom; transition: transform .8s cubic-bezier(.3, .6, .3, 1); }
+.motion .climb-list li.is-in .ramp { transform: none; }
+
+/* 4. 마우스를 올리면 카드가 살짝 들썩이기 (마우스가 있는 기기만) */
+@media (hover: hover) and (pointer: fine) {
+  .stat, .course, .btn { transition: transform .3s ease, box-shadow .3s ease, background .15s, color .15s, border-color .15s; }
+  .stat:hover, .course:hover { transform: translateY(-4px); box-shadow: 0 2px 4px rgba(20, 40, 28, .06), 0 10px 24px rgba(20, 40, 28, .10); }
+  .btn:not(.is-disabled):hover { transform: translateY(-2px); }
+}
+
+/* 자주 묻는 질문 */
+.faq .card { margin-bottom: 10px; }
+.faq summary { line-height: 1.45; }
+.faq .fold-body p { color: var(--ink-2); }
+
+/* 참가 신청: 신청 방법 한 줄 */
+.apply-how { margin-top: -10px; font-weight: 600; }

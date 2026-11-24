@@ -1,0 +1,18 @@
+# 비밀 정보 (비밀번호, API 키 등) - 절대 올리지 않음
+.env
+.env.*
+*.pem
+*.key
+
+# 운영체제가 만드는 파일
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 도구가 만드는 파일
+node_modules/
+.netlify/
+*.log
+
+# Claude 개인 설정
+.claude/settings.local.json
