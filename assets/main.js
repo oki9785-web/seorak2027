@@ -140,6 +140,18 @@
     }, { rootMargin: '0px 0px -15% 0px' });
     targets.forEach(function (el) { io.observe(el); });
 
+    // 일정 진행선: 타임라인이 화면에 들어오면 위에서부터 채워짐
+    var tl = $('timeline');
+    if (tl) {
+      tl.classList.add('tl-anim');
+      var tlIo = new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) return;
+        tl.classList.add('is-in');
+        tlIo.disconnect();
+      }, { rootMargin: '0px 0px -25% 0px' });
+      tlIo.observe(tl);
+    }
+
     // 고개 막대: 줄마다 화면 아래 20% 선을 넘을 때 자라남. 한꺼번에 들어오면 0.15초씩 차례로.
     var rows = document.querySelectorAll('#climbList li');
     var rowIo = new IntersectionObserver(function (entries) {
@@ -374,6 +386,28 @@
         (c.note ? '<p class="tl-note">' + esc(c.note) + '</p>' : '') +
         '</li>';
     }).join('');
+
+    // 진행선: 오늘 날짜가 어느 두 체크포인트 사이에 있는지 보고, 그 사이 거리만큼 초록 선을 채움.
+    var ends = items.map(function (c) { return c.end === 'race' ? cfg.raceDate : c.end; });
+    function day(s) { var p = s.split('-'); return Date.UTC(+p[0], p[1] - 1, +p[2]); }
+    function place() {
+      var ol = $('timeline');
+      var lis = ol.children;
+      if (!lis.length) return;
+      function dotY(li) { return li.offsetTop + 14; } // 점 중심 (top 6px + 지름 16px의 절반)
+      var i = 0;
+      while (i < ends.length && T > ends[i]) i++;
+      var y;
+      if (i >= ends.length) y = dotY(lis[lis.length - 1]);
+      else if (i === 0) y = 8;
+      else {
+        var frac = (day(T) - day(ends[i - 1])) / (day(ends[i]) - day(ends[i - 1]));
+        y = dotY(lis[i - 1]) + (dotY(lis[i]) - dotY(lis[i - 1])) * Math.max(0, Math.min(1, frac));
+      }
+      ol.style.setProperty('--tl-fill', Math.max(0, y - 8) + 'px');
+    }
+    requestAnimationFrame(place);
+    window.addEventListener('resize', place);
   }
 
   function renderWeeksTable(data, T) {

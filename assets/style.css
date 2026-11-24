@@ -233,6 +233,13 @@ details > summary::-webkit-details-marker { display: none; }
 .intro-col p { color: var(--ink-2); }
 .intro-col b { color: var(--ink); }
 .intro-col a { color: var(--accent-strong); text-underline-offset: 3px; }
+.ref-link { display: flex; flex-direction: column; gap: 4px; margin: 16px 0 0; padding: 12px 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.ref-link a { font-weight: 700; color: var(--accent-strong); text-underline-offset: 3px; }
+.ref-link a::after { content: " \2197"; }
+.faq .faq-highlight { border: 2px solid var(--accent); background: var(--accent-soft); }
+.faq .faq-highlight summary span { color: var(--accent-strong); }
+.faq .faq-highlight .fold-body p { color: var(--ink); }
+.faq .faq-btn { margin-top: 12px; }
 .intro-note { margin: 0 0 28px; padding: 16px 18px; background: var(--accent-soft); border-left: 4px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; color: var(--ink); }
 
 /* 대회 */
@@ -282,11 +289,19 @@ details > summary::-webkit-details-marker { display: none; }
 /* 일정 */
 .timeline { list-style: none; margin: 24px 0 20px; padding: 0; position: relative; }
 .timeline::before { content: ""; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: var(--line); }
-.timeline li { position: relative; padding: 0 0 18px 32px; }
+/* 진행선: 오늘까지 온 만큼 초록으로 (높이는 main.js가 --tl-fill로 정함) */
+.timeline::after { content: ""; position: absolute; left: 7px; top: 8px; width: 2px; height: var(--tl-fill, 0px); background: var(--accent); border-radius: 2px; transform-origin: top; z-index: 0; }
+.timeline.tl-anim::after { transform: scaleY(0); }
+.timeline.tl-anim.is-in::after { transform: scaleY(1); transition: transform 1.4s cubic-bezier(.3, .7, .3, 1) .2s; }
+.timeline li { position: relative; z-index: 1; padding: 0 0 18px 32px; }
 .timeline li::before { content: ""; position: absolute; left: 0; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); border: 3px solid var(--line); }
-.timeline li.done::before { background: var(--line); }
+.timeline li.done::before { background: var(--accent); border-color: var(--accent); }
+/* 지금 단계 점: 둘레에 고리가 천천히 퍼졌다 사라짐 */
+.timeline li.next::after { content: ""; position: absolute; left: 0; top: 6px; width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--accent); opacity: 0; pointer-events: none; }
+.motion .timeline li.next::after { animation: tl-pulse 2.4s ease-out infinite; }
+@keyframes tl-pulse { 0% { transform: scale(1); opacity: .7; } 70%, 100% { transform: scale(2.4); opacity: 0; } }
 .timeline li.now::before { border-color: var(--accent); background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
-.timeline li.next::before { border-color: var(--accent); }
+.timeline li.next::before { border-color: var(--accent); background: var(--surface); box-shadow: 0 0 0 4px var(--accent-soft); }
 .timeline li.last::before { border-color: var(--accent-strong); background: var(--accent-strong); }
 .tl-date { font-size: .85rem; color: var(--muted); font-weight: 600; }
 .tl-title { font-weight: 700; font-size: 1.05rem; }
