@@ -25,10 +25,20 @@
 - Python이 있으면: `python -m http.server 8080`
 - 날짜별 화면 확인: 주소 뒤에 `?date=2027-01-12`처럼 붙임
 
+## 외부 서비스 (운영자 계정)
+- Netlify 프로젝트 `seorak2027`: https://app.netlify.com/projects/seorak2027/overview
+  - 방문자 공개 설정은 Public (팀 기본값이 비공개라 새 프로젝트를 만들면 꼭 확인)
+- 구글 폼 "2027 설악 원정대 참가 신청" (게시됨, 링크가 있는 모든 사용자 응답 가능)
+  - 편집: https://docs.google.com/forms/d/10wqNybCelagveNQg3WNmx4_wlnFvMRjyEbe45dzu3WE/edit
+  - 응답: `config.json`의 `googleFormUrl`
+  - 질문 10개와 설정은 SPEC.md '구글 폼 질문 항목'과 같음. 폼을 고치면 SPEC.md도 맞춘다
+  - 확인 메시지: "신청이 접수되었습니다. 이제 카페 공고글에 '신청 완료!' 댓글을 남겨 주세요." (카페 글 주소는 아직 없음)
+- 카페 모집 공고글 초안: [docs/cafe-recruit-post.md](docs/cafe-recruit-post.md)
+
 ## 다음에 할 일 (2026-11-24 기준)
-- Netlify 연결 완료 (2026-11-24). 대표 주소 https://seorak2027.netlify.app/ , og:url·og:image도 이 주소.
-  - 남은 일: 카카오 공유 디버거에서 캐시 초기화, 카페 링크를 Netlify 주소로 교체 (사용자가 직접)
-  - Netlify 방문자 공개 설정은 Public (팀 기본값이 비공개라 새 프로젝트는 확인 필요)
-- 구글 폼 "2027 설악 원정대 참가 신청" 게시 완료, `googleFormUrl` 연결됨. 카페 공고글 주소가 나오면 `cafePostUrl`과 폼 확인 메시지에 넣기
+- 끝난 일 (2026-11-24): Netlify 연결, GitHub Pages 끄기, og 주소 Netlify로 변경, 카카오 공유 캐시 초기화, 구글 폼 생성·게시
+- **카페 모집 공고글 올리기** (사용자가 직접, 초안은 docs/cafe-recruit-post.md). 글 주소를 받으면:
+  - `config.json`의 `cafePostUrl`에 넣기 (랜딩페이지 '2. 카페에 신청 완료! 댓글 남기기' 버튼이 켜짐)
+  - 구글 폼 확인 메시지 끝에 글 주소 추가 (브라우저에서 구글 로그인 필요)
 - 아직 비어 있는 설정 (`data/config.json`): `cafePostUrl`, `cafeUrl`, `firstRideMeetingPoint`, 주별 응원 문구(`weeks.json`의 `cheer`), 대회 이동 방식(`raceTravelNote`)
 - 2027 공식 요강이 나오면 `raceDate`, `raceDateIsEstimate`, 체크포인트 날짜 갱신
